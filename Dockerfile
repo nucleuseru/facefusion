@@ -1,7 +1,5 @@
 FROM python:3.12-bookworm
 
-WORKDIR /app
-
 # Install system dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ffmpeg curl && \
@@ -24,7 +22,7 @@ RUN curl -LO https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.
 ENV PATH=$CONDA_DIR/envs/facefusion/bin:$PATH
 ENV LD_LIBRARY_PATH=$CONDA_DIR/envs/facefusion/lib:${LD_LIBRARY_PATH:-}
 
-WORKDIR /app/facefusion
+WORKDIR /app
 
 # Ensure all RUN commands execute inside the conda environment wrapper
 SHELL ["conda", "run", "--no-capture-output", "-n", "facefusion", "/bin/bash", "-c"]
